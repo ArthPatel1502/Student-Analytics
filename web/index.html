@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Performance Analytics &amp; Visualization</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+<div class="layout">
+
+  <aside class="sidebar">
+    <h1>Student Performance Analytics</h1>
+    <div class="subtitle">Data Science &amp; Visualization &mdash; Mini Project</div>
+    <nav>
+      <a href="#overview">1. Overview</a>
+      <a href="#descriptive">2. Descriptive Analytics</a>
+      <a href="#probability">3. Probability</a>
+      <a href="#sampling">4. Sampling &amp; Estimation</a>
+      <a href="#charts">5 &amp; 7. Visualizations</a>
+      <a href="#tabular">6. Tabular Data</a>
+    </nav>
+    <div class="meta">
+      60 students &middot; 4 semesters &middot; 5 subjects<br>
+      Built with Python + HTML5 Canvas + SVG + Google Charts
+    </div>
+  </aside>
+
+  <main>
+
+    <section id="overview">
+      <h2>1. Overview</h2>
+      <p class="section-note">
+        This project applies each stage of the analytics spectrum to one dataset: a batch of
+        60 students across four semesters and five subjects. The pipeline in
+        <code>analytics/analytics.py</code> handles the data-science half; this page handles the
+        visualization half.
+      </p>
+      <div class="grid-3" id="overview-cards"></div>
+    </section>
+
+    <section id="descriptive">
+      <h2>2. Descriptive Analytics</h2>
+      <p class="section-note">
+        Measures of central tendency, variation, and shape (skewness &amp; kurtosis) computed
+        per subject, per semester. Marks are a ratio-scale variable; gender and city are nominal.
+      </p>
+
+      <div class="subject-select">
+        Subject:
+        <select id="subjectSelect"></select>
+        &nbsp; Semester:
+        <select id="semesterSelect"></select>
+      </div>
+
+      <div class="grid-3" id="descriptive-cards"></div>
+
+      <div class="panel" style="margin-top:20px;">
+        <canvas id="semTrendCanvas" width="720" height="260"></canvas>
+        <div class="legend"><span class="dot-teal">Class average mark, by semester</span></div>
+      </div>
+    </section>
+
+    <section id="probability">
+      <h2>3. Probability</h2>
+      <p class="section-note">
+        Pass probability per subject (Bernoulli/PMF view), a Binomial model for "how many of 5
+        subjects will a student pass", and Bayes&rsquo; theorem relating city and pass outcome.
+      </p>
+      <div class="grid-2">
+        <div class="panel">
+          <strong>Pass probability per subject</strong>
+          <svg id="passProbSvg" viewBox="0 0 420 260"></svg>
+        </div>
+        <div class="panel">
+          <strong>Binomial PMF &mdash; subjects passed out of 5</strong>
+          <svg id="binomialSvg" viewBox="0 0 420 260"></svg>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:20px;" id="bayesPanel"></div>
+    </section>
+
+    <section id="sampling">
+      <h2>4. Sampling &amp; Estimation</h2>
+      <p class="section-note">
+        500 random samples (size 15) were drawn from the population of semester-1 average marks
+        to demonstrate the Central Limit Theorem, alongside Method-of-Moments and Maximum
+        Likelihood estimates from a single sample.
+      </p>
+      <div class="grid-3" id="sampling-cards"></div>
+      <div class="panel" style="margin-top:20px;">
+        <canvas id="cltCanvas" width="720" height="260"></canvas>
+        <div class="legend"><span class="dot-gold">Distribution of sample means (CLT demo)</span></div>
+      </div>
+    </section>
+
+    <section id="charts">
+      <h2>5 &amp; 7. Data Visualization</h2>
+      <p class="section-note">
+        Charting primitives built directly on HTML5 Canvas and inline SVG &mdash; no charting
+        library &mdash; plus a Google Chart for geographic distribution.
+      </p>
+      <div class="grid-2">
+        <div class="panel">
+          <strong>Gender distribution</strong>
+          <svg id="genderPieSvg" viewBox="0 0 260 260"></svg>
+        </div>
+        <div class="panel">
+          <strong>Students by city</strong>
+          <div id="geo_chart_div"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tabular">
+      <h2>6. Tabular Data Visualization</h2>
+      <p class="section-note">
+        Student records read from the processed dataset, with dynamic highlighting: red for a
+        failing mark (&lt; 40), otherwise a passing mark. Showing first 20 students.
+      </p>
+      <div class="table-scroll">
+        <table id="studentsTable">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      Data Science &amp; Visualization &mdash; Mini Project &middot; Dataset is synthetic, generated
+      for demonstration.
+    </footer>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
